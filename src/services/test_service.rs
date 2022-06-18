@@ -4,19 +4,15 @@ use wasm_bindgen::UnwrapThrowExt;
 pub struct TestService;
 
 impl TestService {
-    pub async fn make_request(url: &str, first: bool) {
-        if !first {
-            return;
-        }
-
-        let resp = Request::get(url)
-            .mode(RequestMode::NoCors)
+    pub async fn make_request(url: &str) {
+        let fetched_videos: String = Request::get(url)
+            .mode(RequestMode::Cors)
             .send()
             .await
-            .unwrap_throw();
-
-        let text = resp.text().await.unwrap();
-
-        log::info!("{}", text);
+            .unwrap()
+            .text()
+            .await
+            .unwrap();
+        log::info!("{:?}", fetched_videos);
     }
 }

@@ -1,7 +1,7 @@
 use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
-use crate::{components::{ChatInput, Comp}, services::TestService};
+use crate::{components::{ChatInput}, services::TestService};
 
 #[derive(Debug)]
 pub enum Msg {
@@ -13,7 +13,7 @@ pub struct Chat;
 impl Chat {
     fn make_request(url: String) {
         spawn_local(async move {
-            TestService::make_request(&url, true).await;
+            TestService::make_request(&url).await;
         });
     }
 }
